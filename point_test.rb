@@ -12,6 +12,10 @@ class Point
     (algarism_sum(self.x)+algarism_sum(self.y)) <= 19
   end
 
+  def to_s
+    "(#{self.x},#{self.y})"
+  end
+
   private
   def algarism_sum(number)
     number_string = number.to_s
@@ -43,5 +47,11 @@ describe Point do
 
     point.x.must_equal random_x
     point.y.must_equal random_y
+  end
+
+  it "must output the object as it was a cartesian point" do
+    point = Point.new(0,0)
+
+    point.to_s.must_equal "(0,0)"
   end
 end
