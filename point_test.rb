@@ -8,6 +8,10 @@ class Point
     @x, @y = x, y
   end
 
+  def ==(otherPoint)
+    (self.x == otherPoint.x) and (self.y == otherPoint.y)
+  end
+
   def neighbors
     @neighbors ||= build_neighbors
   end
@@ -97,6 +101,11 @@ describe Point do
     it "must have 8 neighbors" do
       point = Point.new(0,0)
       point.neighbors.size.must_equal 8
+    end
+
+    it "the first neighbor of the point (1,1) must be the point (0,2)" do
+      point = Point.new(1,1)
+      point.neighbors.first.must_equal Point.new(0,2)
     end
   end
 end
