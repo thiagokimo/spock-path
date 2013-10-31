@@ -2,10 +2,11 @@ require 'minitest/autorun'
 
 class Point
 
-  attr_reader :x, :y, :neighbors
+  attr_reader :x, :y, :neighbors, :visited
 
-  def initialize(x,y)
+  def initialize(x,y, visited=false)
     @x, @y = x, y
+    @visited = visited
   end
 
   def ==(otherPoint)
@@ -70,6 +71,19 @@ describe Point do
 
     point.spock_path?.must_equal true
   end
+
+  describe "#visited" do
+    it "should be false if is not defined in the constructor" do
+      point = Point.new(11,11)
+      point.visited.must_equal false
+    end
+
+    it "must be true if defined in the constructor" do
+      point = Point.new(11,11,true)
+      point.visited.must_equal true
+    end
+  end
+
 
   it "the algarims sum of the point (1,1) must be 2" do
     point = Point.new(1,1)
