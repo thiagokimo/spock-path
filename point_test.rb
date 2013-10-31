@@ -107,5 +107,10 @@ describe Point do
       point = Point.new(1,1)
       point.neighbors.first.must_equal Point.new(0,2)
     end
+
+    it "the eighth neighbor of the point (1,1) must be the point (2,0)" do
+      point = Point.new(1,1)
+      point.neighbors.last.must_equal Point.new(2,0)
+    end
   end
 end
