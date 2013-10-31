@@ -2,10 +2,14 @@ require 'minitest/autorun'
 
 class Point
 
-  attr_reader :x, :y
+  attr_reader :x, :y, :neighbors
 
   def initialize(x,y)
     @x, @y = x, y
+  end
+
+  def neighbors
+    @neighbors ||= build_neighbors
   end
 
   def spock_path?
@@ -20,6 +24,36 @@ class Point
   def algarism_sum(number)
     number_string = number.to_s
     (0..number_string.size).inject { |sum, algarism| sum += number_string[algarism].to_i }
+  end
+
+  def build_neighbors
+    neighbors = []
+
+    # first
+    neighbors << Point.new(self.x-1, self.y+1)
+
+    #second
+    neighbors << Point.new(self.x, self.y+1)
+
+    # third
+    neighbors << Point.new(self.x+1, self.y+1)
+
+    #fourth
+    neighbors << Point.new(self.x-1, self.y)
+
+    # fifth
+    neighbors << Point.new(self.x+1, self.y)
+
+    # sixth
+    neighbors << Point.new(self.x-1, self.y-1)
+
+    # seventh
+    neighbors << Point.new(self.x, self.y-1)
+
+    # eighth
+    neighbors << Point.new(self.x+1, self.y-1)
+
+    neighbors
   end
 end
 
@@ -53,5 +87,16 @@ describe Point do
     point = Point.new(0,0)
 
     point.to_s.must_equal "(0,0)"
+  end
+
+  # Neighbors
+  # | 1 | 2 | 3 |
+  # | 4 | x | 5 |
+  # | 6 | 7 | 8 |
+  describe "neighbors" do
+    it "must have 8 neighbors" do
+      point = Point.new(0,0)
+      point.neighbors.size.must_equal 8
+    end
   end
 end
