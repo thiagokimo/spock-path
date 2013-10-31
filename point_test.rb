@@ -2,7 +2,8 @@ require 'minitest/autorun'
 
 class Point
 
-  attr_reader :x, :y, :neighbors, :visited
+  attr_reader :x, :y, :neighbors
+  attr_accessor :visited
 
   def initialize(x,y, visited=false)
     @x, @y = x, y
