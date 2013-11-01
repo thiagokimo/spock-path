@@ -2,12 +2,15 @@ require 'minitest/autorun'
 
 class Point
 
-  attr_reader :x, :y, :neighbours
+  FIRST_QUADRANT, SECOND_QUADRANT, THRID_QUADRANT, FOURTH_QUADRANT = 1,2,3,4
+
+  attr_reader :x, :y, :neighbours, :quadrant
   attr_accessor :visited
 
   def initialize(x,y, visited=false)
     @x, @y = x, y
     @visited = visited
+    define_quadrant
   end
 
   def ==(otherPoint)
@@ -27,6 +30,13 @@ class Point
   end
 
   private
+  def define_quadrant
+    @quadrant = FIRST_QUADRANT if self.x >= 0 and self.y >= 0
+    @quadrant = SECOND_QUADRANT if self.x < 0 and self.y >= 0
+    @quadrant = THRID_QUADRANT if self.x < 0 and self.y < 0
+    @quadrant = FOURTH_QUADRANT if self.x >= 0 and self.y < 0
+  end
+
   def algarism_sum(number)
     number_string = number.to_s
     (0..number_string.size).inject { |sum, algarism| sum += number_string[algarism].to_i }
@@ -85,6 +95,30 @@ describe Point do
     end
   end
 
+  # 2  |  1
+  # ---|----
+  # 3  |  4
+  describe "#quadrant" do
+    it "the point (1,1) is located in the first quadrant" do
+      point = Point.new(1,1)
+      point.quadrant.must_equal 1
+    end
+
+    it "the point (-1,1) is located in the second quadrant" do
+      point = Point.new(-1,1)
+      point.quadrant.must_equal 2
+    end
+
+    it "the point (-1,-1) is located in the third quadrant" do
+      point = Point.new(-1,-1)
+      point.quadrant.must_equal 3
+    end
+
+    it "the point (1,-1) is located in the fourth quadrant" do
+      point = Point.new(1,-1)
+      point.quadrant.must_equal 4
+    end
+  end
 
   it "the algarims sum of the point (1,1) must be 2" do
     point = Point.new(1,1)
