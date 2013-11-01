@@ -2,7 +2,7 @@ require 'minitest/autorun'
 
 class Point
 
-  attr_reader :x, :y, :neighbors
+  attr_reader :x, :y, :neighbours
   attr_accessor :visited
 
   def initialize(x,y, visited=false)
@@ -14,8 +14,8 @@ class Point
     (self.x == otherPoint.x) and (self.y == otherPoint.y)
   end
 
-  def neighbors
-    @neighbors ||= build_neighbors
+  def neighbours
+    @neighbours ||= build_neighbours
   end
 
   def spock_path?
@@ -32,34 +32,34 @@ class Point
     (0..number_string.size).inject { |sum, algarism| sum += number_string[algarism].to_i }
   end
 
-  def build_neighbors
-    neighbors = []
+  def build_neighbours
+    neighbours = []
 
     # first
-    neighbors << Point.new(self.x-1, self.y+1)
+    neighbours << Point.new(self.x-1, self.y+1)
 
     #second
-    neighbors << Point.new(self.x, self.y+1)
+    neighbours << Point.new(self.x, self.y+1)
 
     # third
-    neighbors << Point.new(self.x+1, self.y+1)
+    neighbours << Point.new(self.x+1, self.y+1)
 
     #fourth
-    neighbors << Point.new(self.x-1, self.y)
+    neighbours << Point.new(self.x-1, self.y)
 
     # fifth
-    neighbors << Point.new(self.x+1, self.y)
+    neighbours << Point.new(self.x+1, self.y)
 
     # sixth
-    neighbors << Point.new(self.x-1, self.y-1)
+    neighbours << Point.new(self.x-1, self.y-1)
 
     # seventh
-    neighbors << Point.new(self.x, self.y-1)
+    neighbours << Point.new(self.x, self.y-1)
 
     # eighth
-    neighbors << Point.new(self.x+1, self.y-1)
+    neighbours << Point.new(self.x+1, self.y-1)
 
-    neighbors
+    neighbours
   end
 end
 
@@ -108,24 +108,24 @@ describe Point do
     point.to_s.must_equal "(0,0)"
   end
 
-  # Neighbors
+  # neighbours
   # | 1 | 2 | 3 |
   # | 4 | x | 5 |
   # | 6 | 7 | 8 |
-  describe "neighbors" do
-    it "must have 8 neighbors" do
+  describe "neighbours" do
+    it "must have 8 neighbours" do
       point = Point.new(0,0)
-      point.neighbors.size.must_equal 8
+      point.neighbours.size.must_equal 8
     end
 
     it "the first neighbor of the point (1,1) must be the point (0,2)" do
       point = Point.new(1,1)
-      point.neighbors.first.must_equal Point.new(0,2)
+      point.neighbours.first.must_equal Point.new(0,2)
     end
 
     it "the eighth neighbor of the point (1,1) must be the point (2,0)" do
       point = Point.new(1,1)
-      point.neighbors.last.must_equal Point.new(2,0)
+      point.neighbours.last.must_equal Point.new(2,0)
     end
   end
 end
