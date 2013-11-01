@@ -38,8 +38,7 @@ class Point
   end
 
   def algarism_sum(number)
-    number_string = number.to_s
-    (0..number_string.size).inject { |sum, algarism| sum += number_string[algarism].to_i }
+    number.to_s.split('').map(&:to_i).inject { |sum, number|  sum + number }
   end
 
   def build_neighbours
@@ -80,7 +79,7 @@ describe Point do
   it "should sum the coordinates algarisms" do
     point = Point.new(77,49)
 
-    point.spock_path?.must_equal true
+    point.spock_path?.must_equal false
   end
 
   describe "#visited" do
