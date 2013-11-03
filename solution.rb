@@ -1,4 +1,4 @@
-require './point_test'
+require './lib/point'
 
 @points_counter = 0
 
@@ -14,13 +14,12 @@ end
 
 def calculate_variation(limit)
 
- x = limit
- y = 0
-
  #calculates only the first quadrant points
- for x in (0).upto(298)
-   for y in (298).downto(0)
-    @points_counter += 1 if Point.new(x,y).spock_path?
+ for x in (0).upto(limit)
+   for y in (limit).downto(0)
+    if Point.new(x,y).spock_path?
+      @points_counter = @points_counter + 1
+    end
    end
  end
 end
@@ -28,10 +27,10 @@ end
 def find_spock_path
   limit = find_limit
 
-  calculate_variation(limit)
-
   #Removing the point (0,0)
   @points_counter = limit - 1
+
+  calculate_variation(limit)
 
   # Multiply the number of points found in the first quadrant by 4
   @points_counter = @points_counter * 4
